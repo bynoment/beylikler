@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace Database\Seeders;
 
@@ -22,13 +22,14 @@ class GeoProvincesSeeder extends Seeder
         ];
 
         $bonusTypes = ['grain','stone','iron','gold'];
+        $bonusPcts = [5,10,15];
 
         foreach ($provinces as $name) {
             DB::table('geo_provinces')->updateOrInsert(
                 ['name' => $name],
                 [
                     'bonus_type' => $bonusTypes[array_rand($bonusTypes)],
-                    'bonus_pct' => [5,10,15][array_rand([5,10,15])],
+                    'bonus_pct' => $bonusPcts[array_rand($bonusPcts)],
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]
