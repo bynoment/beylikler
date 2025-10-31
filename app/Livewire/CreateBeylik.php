@@ -12,7 +12,7 @@ class CreateBeylik extends Component
 {
     public ?string $selectedProvinceName = null;
 
-    #[On('provinceSelected')]
+    #[On('provinceSelected', from: 'window')]
     public function setProvince($payload): void
     {
         $name = is_array($payload) ? ($payload['name'] ?? null) : $payload;
@@ -57,7 +57,7 @@ class CreateBeylik extends Component
         $this->createdId = $beylik->id;
         $this->reset(['name','province_id']);
         $this->selectedProvinceName = null;
-        session()->flash('ok', 'Beylik oluşturuldu.');
+        session()->flash('ok', 'Beylik oluÅŸturuldu.');
     }
 
     public function render()
