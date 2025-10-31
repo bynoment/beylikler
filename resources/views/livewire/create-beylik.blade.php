@@ -16,33 +16,23 @@
             <input type="text" wire:model.defer="name" placeholder="Örn: Karesi" style="width:100%;padding:8px;border-radius:8px;border:1px solid #333;background:#0f1016;color:#f3f4f6" />
             @error('name') <div style="color:#fca5a5;font-size:12px">{{ $message }}</div> @enderror
         </div>
-        <div class="muted">Seçilen il: <strong>{{ $selectedProvinceName ?: '—' }}</strong></div>
+
+        <div>
+            <label>İl</label>
+            <select wire:model="province_id" style="width:100%;padding:8px;border-radius:8px;border:1px solid #333;background:#0f1016;color:#f3f4f6">
+                <option value="">İl seçin…</option>
+                @foreach (collect($nameToId)->sortKeys() as $name => $id)
+                    <option value="{{ $id }}">{{ $name }}</option>
+                @endforeach
+            </select>
+            @error('province_id') <div style="color:#fca5a5;font-size:12px">{{ $message }}</div> @enderror
+        </div>
+
+        @php $selectedName = $province_id ? collect($nameToId)->search((int) $province_id) : null; @endphp
+        <div class="muted">Seçilen il: <strong>{{ $selectedName ?: '—' }}</strong></div>
+
         <div>
             <button type="submit" style="padding:10px 14px;border-radius:8px;background:#22c55e;color:#0b0b0f;border:0">Oluştur</button>
         </div>
     </form>
-
-    <div wire:ignore>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dnomak/svg-turkiye-haritasi@master/css/svg-turkiye-haritasi.css">
-        @include('partials.turkiye-map')
-    </div>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function(){
-        const el = document.getElementById('svg-turkiye-haritasi');
-        if (!el) return;
-        el.addEventListener('click', function(e){
-            const t = e.target;
-            if(!t || t.tagName.toLowerCase() !== 'path') return;
-            const g = t.parentNode;
-            const slug = g && g.getAttribute('id');
-            if(!slug) return;
-            e.preventDefault(); e.stopPropagation();
-            const root = document.getElementById('create-beylik-root');
-            const lwRoot = root && root.closest('[wire\\:id]');
-            const comp = lwRoot && window.Livewire && Livewire.find ? Livewire.find(lwRoot.getAttribute('wire:id')) : null;
-            if (comp) { comp.call('setProvinceSlug', slug); }
-        });
-    });
-    </script>
 </div>
