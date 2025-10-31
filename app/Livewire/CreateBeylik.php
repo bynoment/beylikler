@@ -1,12 +1,12 @@
 <?php
 
-namespace App\\Livewire;
+namespace App\Livewire;
 
-use App\\Models\\Beylik;
-use Illuminate\\Support\\Facades\\DB;
-use Illuminate\\Support\\Str;
-use Livewire\\Attributes\\Validate;
-use Livewire\\Component;
+use App\Models\Beylik;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Livewire\Attributes\Validate;
+use Livewire\Component;
 
 class CreateBeylik extends Component
 {
