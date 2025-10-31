@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Livewire;
+namespace App\\Livewire;
 
-use App\Models\Beylik;
-use Illuminate\Support\Facades\DB;
-use Livewire\Attributes\Validate;
-use Livewire\Component;
+use App\\Models\\Beylik;
+use Illuminate\\Support\\Facades\\DB;
+use Illuminate\\Support\\Str;
+use Livewire\\Attributes\\Validate;
+use Livewire\\Component;
 
 class CreateBeylik extends Component
 {
@@ -18,15 +19,29 @@ class CreateBeylik extends Component
     public $province_id = '';
 
     public array $nameToId = [];
+    public array $slugToName = [];
     public ?int $createdId = null;
 
     public function mount(): void
     {
-        $this->nameToId = DB::table('geo_provinces')->pluck('id','name')->toArray();
+        $this->nameToId = DB::table('geo_provinces')->pluck('id', 'name')->toArray();
+        foreach (array_keys($this->nameToId) as $name) {
+            $slug = Str::slug($name);
+            $this->slugToName[$slug] = $name;
+        }
     }
 
     public function setProvince(string $name): void
     {
+        if ($name && isset($this->nameToId[$name])) {
+            $this->selectedProvinceName = $name;
+            $this->province_id = $this->nameToId[$name];
+        }
+    }
+
+    public function setProvinceSlug(string $slug): void
+    {
+        $name = $this->slugToName[$slug] ?? null;
         if ($name && isset($this->nameToId[$name])) {
             $this->selectedProvinceName = $name;
             $this->province_id = $this->nameToId[$name];

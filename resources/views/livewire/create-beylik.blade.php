@@ -35,13 +35,13 @@
             const t = e.target;
             if(!t || t.tagName.toLowerCase() !== 'path') return;
             const g = t.parentNode;
-            const name = g && g.getAttribute('data-iladi');
-            if(!name) return;
+            const slug = g && g.getAttribute('id');
+            if(!slug) return;
             e.preventDefault(); e.stopPropagation();
             const root = document.getElementById('create-beylik-root');
             const lwRoot = root && root.closest('[wire\\:id]');
             const comp = lwRoot && window.Livewire && Livewire.find ? Livewire.find(lwRoot.getAttribute('wire:id')) : null;
-            if (comp) { comp.call('setProvince', name); }
+            if (comp) { comp.call('setProvinceSlug', slug); }
         });
     });
     </script>
