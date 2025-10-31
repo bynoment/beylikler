@@ -6,21 +6,11 @@ use App\Models\Beylik;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
-use Livewire\Attributes\On;
 
 class CreateBeylik extends Component
 {
     public ?string $selectedProvinceName = null;
 
-    #[On('provinceSelected', from: 'window')]
-    public function setProvince($payload): void
-    {
-        $name = is_array($payload) ? ($payload['name'] ?? null) : $payload;
-        if ($name && isset($this->nameToId[$name])) {
-            $this->selectedProvinceName = $name;
-            $this->province_id = $this->nameToId[$name];
-        }
-    }
     #[Validate('required|string|min:3|max:40')]
     public string $name = '';
 
@@ -35,7 +25,15 @@ class CreateBeylik extends Component
         $this->nameToId = DB::table('geo_provinces')->pluck('id','name')->toArray();
     }
 
-        public function create(): void
+    public function setProvince(string $name): void
+    {
+        if ($name && isset($this->nameToId[$name])) {
+            $this->selectedProvinceName = $name;
+            $this->province_id = $this->nameToId[$name];
+        }
+    }
+
+    public function create(): void
     {
         $this->validate();
 
@@ -57,7 +55,7 @@ class CreateBeylik extends Component
         $this->createdId = $beylik->id;
         $this->reset(['name','province_id']);
         $this->selectedProvinceName = null;
-        session()->flash('ok', 'Beylik oluÅŸturuldu.');
+        session()->flash('ok', 'Beylik oluşturuldu.');
     }
 
     public function render()
