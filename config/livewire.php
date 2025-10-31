@@ -1,5 +1,6 @@
 ﻿<?php
 
 return [
-    'asset_url' => env('ASSET_URL', null),
+    'asset_url' => env('LIVEWIRE_ASSET_URL', null),
 ];
+
