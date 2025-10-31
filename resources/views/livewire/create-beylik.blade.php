@@ -1,4 +1,4 @@
-﻿<div>
+<div>
     <h2 style="margin:0 0 12px">Beylik Oluştur</h2>
 
     @if (session('ok'))
@@ -40,7 +40,7 @@
             const name = g && g.getAttribute('data-iladi');
             if(!name) return;
             e.preventDefault(); e.stopPropagation();
-            if (window.Livewire && Livewire.dispatch){ Livewire.dispatch('provinceSelected', { name: name }); }
+            if (window.Livewire && Livewire.dispatch){ window.dispatchEvent(new CustomEvent('provinceSelected', { detail: { name: name } })); }
         });
     });
     </script>
