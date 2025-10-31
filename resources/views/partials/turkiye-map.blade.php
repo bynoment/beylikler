@@ -1,4 +1,4 @@
-﻿<div class="svg-turkiye-haritasi">
+<div class="svg-turkiye-haritasi">
       <svg version="1.1" id="svg-turkiye-haritasi" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1007.478 527.323" xml:space="preserve">
         <g id="turkiye">
           <g id="adana" data-plakakodu="01" data-alankodu="322" data-iladi="Adana">
@@ -265,7 +265,7 @@
       </svg>
     </div>
     <!-- SVG TÃ¼rkiye HaritasÄ± -->
-    <script src="js/svg-turkiye-haritasi.js"></script>
+    
     <script>
       
     </script>
